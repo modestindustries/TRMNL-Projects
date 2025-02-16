@@ -4,4 +4,4 @@ This is a TRMNL plug-in that polls KEXP's public API, and displays their Real Ti
 
 This is not endorsed by the fine folks at KEXP.
 
-![TRMNL display](images/Full Screen.jpg)
+![full_screen](https://github.com/user-attachments/assets/9959d8a8-4451-4361-bac1-bef1f6110bc5)
