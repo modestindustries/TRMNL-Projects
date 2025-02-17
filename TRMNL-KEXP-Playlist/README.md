@@ -11,8 +11,9 @@ This is not endorsed by the fine folks at KEXP in any way.
 **Polling URL**: https://api.kexp.org/v2/plays/ \
 **Polling Verb**: GET\
 **Polling Headers**:
-
-```{
-  "authorization":"bearer xxx",
+```
+{
+  "authorization":"bearer",
   "content-type":"application/json"
-}```
+}
+```
