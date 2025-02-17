@@ -9,7 +9,8 @@ This is not endorsed by the fine folks at KEXP in any way.
 
 ## Setup
 
-Set up as a Private Plugin, with the following settings: 
+Set up as a Private Plugin, with the following settings: \
+
 **Strategy**: Polling\
 **Polling URL**: https://api.kexp.org/v2/plays/ \
 **Polling Verb**: GET\
