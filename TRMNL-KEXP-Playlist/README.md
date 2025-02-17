@@ -10,9 +10,9 @@ This is not endorsed by the fine folks at KEXP in any way.
 **Strategy**: Polling\
 **Polling URL**: https://api.kexp.org/v2/plays/ \
 **Polling Verb**: GET\
-**Polling Headers**: \
+**Polling Headers**:
 
-{
+```{
   "authorization":"bearer xxx",
   "content-type":"application/json"
-}
+}```
