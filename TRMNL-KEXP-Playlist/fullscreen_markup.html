@@ -23,9 +23,9 @@
                 {% if each_song.play_type == "airbreak" %}
                 <span class="value value--xxsmall">Air Break</span>
                 {% else %}
-                <span class="value value--xsmall">{{ each_song.song }}</span>
-                <span class="value value--xxsmall">{{ each_song.artist }}</span>
-                <span class="description"><i>{{ each_song.album }}</i>
+                <span class="value value--xsmall clamp--1">{{ each_song.song }}</span>
+                <span class="value value--xxsmall clamp--1">{{ each_song.artist }}</span>
+                <span class="description clamp--1"><i>{{ each_song.album }}</i>
                     {% if each_song.release_date != null %}
                     - {{ each_song.release_date | date:'%Y'}}<!-- need seconds to be implemented here {{ time_zone }}--></span>
                 {% endif %}
