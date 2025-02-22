@@ -58,12 +58,13 @@
 <div class="title_bar">
     <img class="image image-dither" src="https://kexp.org/static/assets/img/logo-footer.svg" alt="KEXP" />
     <span class="title">KEXP Playlist (unofficial)</span>
+    <span class="description pl--16">Air times shown are 
     {% if airtime_display == "kexp_seattle_time_zone" %}
-    <span class="description"><center>Air times are KEXP Seattle time zone</center></span>
+            Pacific Time (KEXP Seattle)</span>
     {% elsif airtime_display == "my_local_time_zone" %}
-    <span class="description"><center>Air times are {{ timezone }}</center></span>
+            {{ timezone }}</span>
     {% else %}
-    <span class="description"></center>NO VALUE</center></span>
+            <span class="description">Please set a time zone.</span>
     {% endif %}
     <span class="instance">kexp.org</span>
 </div>
