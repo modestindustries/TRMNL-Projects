@@ -1,31 +1,46 @@
 <div class="layout layout-col">
     <!-- Let's get the value of the time zone picker, for future use. -->
-    {% assign time_zone = trmnl.plugin_settings.custom_fields_values.time_zone %}
+    <!-- {% assign time_zone = trmnl.plugin_settings.custom_fields_values.time_zone %} -->
+    <!-- Until this is implemented, use the user's timezone as an offset -->
+    {% assign airtime_display = trmnl.plugin_settings.custom_fields_values.airtime_timezone %}
+    {% assign timezone = trmnl.user.time_zone %}
+    {% assign utc_offset = trmnl.user.utc_offset %}
     <div class="grid grid--cols-1">
         {% for each_song in results limit:2 %}
         <div class="row">
             <!-- Column 1 -->
             <div class="col w--20 pr--3">
                 {% if each_song.play_type == "airbreak" %}
-                <img class="image image-dither" src="https://kexp.org/static/assets/img/logo-footer-padding.svg" alt="KEXP" />
+                <img class="image image-dither" src="https://kexp.org/static/assets/img/logo-footer-padding.svg"
+                    alt="KEXP" />
                 {% elsif each_song.thumbnail_uri == "" %}
                 <img class="image image-dither" src="https://kexp.org/static/assets/img/default.png" alt="KEXP" />
+                {% elsif each_song.album == "Live on KEXP" %}
+                <img class="image image-dither" src="https://www.kexp.org/filer/canonical/1588181847/22497/"
+                    alt="KEXP" />
                 {% else %}
                 <img class="image image-dither" src="{{each_song.thumbnail_uri}}" alt="Album Art" />
                 {% endif %}
             </div>
             <!-- Column 2 -->
             <div class="col w--72">
-                <span class="description">{{ each_song.airdate | date: '%I:%M %p' }}</span>
+                <!-- <span class="description">{{ each_song.airdate | date: '%I:%M %p' }}</span> -->
+                {% if airtime_display == "my_local_time_zone" %}
+                    <span class="description">{{ each_song.airdate | date: '%s' | plus:utc_offset | date: '%I:%M %p'}}</span>
+                {% elsif airtime_display == "kexp_seattle_time_zone" %}
+                    <span class="description">{{ each_song.airdate | date: '%I:%M %p'}}</span>
+                {% else %}
+                    <span class="description">{{ each_song.airdate | date: '%I:%M %p'}}</span>
+                {% endif %}
                 {% if each_song.play_type == "airbreak" %}
                 <span class="value value--xxsmall">Air Break</span>
                 {% else %}
-                <span class="value value--xsmall">{{ each_song.song }}</span>
-                <span class="value value--xxsmall">{{ each_song.artist }}</span>
-                <span class="description"><i>{{ each_song.album }}</i>
+                    <span class="value value--xsmall clamp--1">{{ each_song.song }}</span>
+                    <span class="value value--xxsmall clamp--1">{{ each_song.artist }}</span>
+                    <span class="description clamp--1"><i>{{ each_song.album }}</i>
                     {% if each_song.release_date != null %}
-                    - {{ each_song.release_date | date:
-                    '%Y'}}<!-- need seconds to be implemented here {{ time_zone }}--></span>
+                        - {{ each_song.release_date |
+                        date:'%Y'}}<!-- need seconds to be implemented here {{ time_zone }}--></span>
                 {% endif %}
                 {% endif %}
             </div>
