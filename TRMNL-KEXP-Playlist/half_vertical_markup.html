@@ -11,26 +11,18 @@
             <!-- Column 1 -->
             <div class="col w--20 pr--3">
                 {% if each_song.play_type == "airbreak" %}
-                <img class="image image-dither" src="https://kexp.org/static/assets/img/logo-footer-padding.svg" alt="KEXP" />
+                <img class="image image-dither" src="https://kexp.org/static/assets/img/logo-footer-padding.svg" alt="KEXP" style="width:80px;height:80px"/>
                 {% elsif each_song.thumbnail_uri == "" %}
-                <img class="image image-dither" src="https://kexp.org/static/assets/img/default.png" alt="KEXP" />
+                <img class="image image-dither-" src="https://kexp.org/static/assets/img/default.png" alt="KEXP" style="width:70px;height:70px"/>
                 {% elsif each_song.album == "Live on KEXP" %}
-                <img class="image image-dither" src="https://www.kexp.org/filer/canonical/1588181847/22497/"
-                    alt="KEXP" />
+                <img class="image image-dither" src="https://www.kexp.org/filer/canonical/1588181847/22497/" alt="KEXP" style="width:70px;height:70px"/>
                 {% else %}
                 <img class="image image-dither" src="{{each_song.thumbnail_uri}}" alt="Album Art" />
                 {% endif %}
             </div>
             <!-- Column 2 -->
-            <div class="col w--72">
-                <!-- <span class="description">{{ each_song.airdate | date: '%I:%M %p' }}</span> -->
-                {% if airtime_display == "my_local_time_zone" %}
+            <div class="col w--80">
                     <span class="description">{{ each_song.airdate | date: '%s' | plus:utc_offset | date: '%I:%M %p'}}</span>
-                {% elsif airtime_display == "kexp_seattle_time_zone" %}
-                    <span class="description">{{ each_song.airdate | date: '%I:%M %p'}}</span>
-                {% else %}
-                    <span class="description">{{ each_song.airdate | date: '%I:%M %p'}}</span>
-                {% endif %}
                 {% if each_song.play_type == "airbreak" %}
                 <span class="value value--xxsmall">Air Break</span>
                 {% else %}
