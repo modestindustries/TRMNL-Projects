@@ -20,18 +20,6 @@ This is not endorsed by the fine folks at KEXP in any way.
   "content-type":"application/json"
 }
 ```
-**Form Fields**:
-```
-- keyname: airtime_timezone
-  field_type: select
-  options:
-  - 'My local time zone'
-  - 'KEXP Seattle time zone'
-  name: Time Zone
-  description: Time zone to use for song air times
-  help_text: Your TRMNL's time zone, or KEXP Seattle's.
-  default: my_local_time_zone
-  ```
 **Remove bleed margin?**: No
 
 2. Copy / paste the markup to each of the appropriate layouts.
