@@ -23,3 +23,6 @@ This is not endorsed by the fine folks at KEXP in any way.
 **Remove bleed margin?**: No
 
 2. Copy / paste the markup to each of the appropriate layouts.
+
+## Notes
+- Airtimes, shown above each track, will be local to you, depending on the Time Zone you've set in usetrml.com.
