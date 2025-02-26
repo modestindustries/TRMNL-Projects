@@ -11,26 +11,18 @@
             <!-- Column 1 -->
             <div class="col w--20 pr--3">
                 {% if each_song.play_type == "airbreak" %}
-                <img class="image image-dither" src="https://kexp.org/static/assets/img/logo-footer-padding.svg" alt="KEXP" />
+                <img class="image image-dither" src="https://kexp.org/static/assets/img/logo-footer-padding.svg" alt="KEXP" style="width:80px;height:80px"/>
                 {% elsif each_song.thumbnail_uri == "" %}
-                <img class="image image-dither" src="https://kexp.org/static/assets/img/default.png" alt="KEXP" />
+                <img class="image image-dither-" src="https://kexp.org/static/assets/img/default.png" alt="KEXP" style="width:70px;height:70px"/>
                 {% elsif each_song.album == "Live on KEXP" %}
-                <img class="image image-dither" src="https://www.kexp.org/filer/canonical/1588181847/22497/"
-                    alt="KEXP" />
+                <img class="image image-dither" src="https://www.kexp.org/filer/canonical/1588181847/22497/" alt="KEXP" style="width:70px;height:70px"/>
                 {% else %}
                 <img class="image image-dither" src="{{each_song.thumbnail_uri}}" alt="Album Art" />
                 {% endif %}
             </div>
             <!-- Column 2 -->
-            <div class="col w--72">
-                <!-- <span class="description">{{ each_song.airdate | date: '%I:%M %p' }}</span> -->
-                {% if airtime_display == "my_local_time_zone" %}
+            <div class="col w--80">
                     <span class="description">{{ each_song.airdate | date: '%s' | plus:utc_offset | date: '%I:%M %p'}}</span>
-                {% elsif airtime_display == "kexp_seattle_time_zone" %}
-                    <span class="description">{{ each_song.airdate | date: '%I:%M %p'}}</span>
-                {% else %}
-                    <span class="description">{{ each_song.airdate | date: '%I:%M %p'}}</span>
-                {% endif %}
                 {% if each_song.play_type == "airbreak" %}
                 <span class="value value--xxsmall">Air Break</span>
                 {% else %}
@@ -44,7 +36,7 @@
                 {% endif %}
             </div>
             <!-- Column 3 -->
-            <div class="col w--96">
+            <div class="col w--80">
                 <div class="description">
                     <span class="description clamp--4">
                         {{ each_song.comment }}
@@ -58,13 +50,6 @@
 <div class="title_bar">
     <img class="image image-dither" src="https://kexp.org/static/assets/img/logo-footer.svg" alt="KEXP" />
     <span class="title">KEXP Playlist (unofficial)</span>
-    <span class="description pl--14">Air times shown are 
-    {% if airtime_display == "kexp_seattle_time_zone" %}
-            Pacific Time (KEXP Seattle)
-    {% elsif airtime_display == "my_local_time_zone" %}
-            {{ timezone }}
-    {% else %}
-            Please set a time zone.
-        {% endif %}</span>
+    <span class="description pl--14">Air times shown are {{ timezone }}
     <span class="instance">kexp.org</span>
 </div>
