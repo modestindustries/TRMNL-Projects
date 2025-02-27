@@ -2,9 +2,9 @@
 
 This is a [TRMNL](https://usetrmnl.com/) plug-in that displays [KEXP's](https://kexp.org) Real Time Playlist.
 
-This is not endorsed by the fine folks at KEXP in any way. 
+This is not endorsed by the fine folks at [KEXP](https://kexp.org) in any way. 
 
-![full_screen](https://github.com/user-attachments/assets/9959d8a8-4451-4361-bac1-bef1f6110bc5)
+![alt text](https://github.com/modestindustries/TRMNL-Projects/blob/main/TRMNL-KEXP-Playlist/images/full_screen.jpg)
 
 ## Setup
 
