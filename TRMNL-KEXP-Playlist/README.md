@@ -1,6 +1,6 @@
 # TRMNL-KEXP-Playlist
 
-This is a [TRMNL](https://usetrmnl.com/) plug-in that displays [KEXP's](https://kexp.org) [Real Time Playlist](https://kexp.org/playlist/).
+This is a [TRMNL](https://usetrmnl.com/) plug-in that displays [KEXP's Real Time Playlist](https://kexp.org/playlist/).
 
 This is not endorsed by the fine folks at [KEXP](https://kexp.org) in any way. 
 
