@@ -2,7 +2,20 @@
     .trmnl .description {
         padding-top: 0px;
         hyphens: auto;
+      line-height: 0.9;
         word-break: break-word;
+    }
+    .airtime_style {
+      font-family:NicoPups;
+      font-size:16px;
+      line-height:1;
+      -webkit-font-smoothing:none;
+      padding-top:1px;
+      display:-webkit-box;
+      -webkit-line-clamp:1;
+      -webkit-box-orient:vertical;
+      word-break:break-all;
+      overflow:hidden
     }
 </style>
 <div class="layout layout-col">
@@ -30,7 +43,7 @@
             </div>
             <!-- Column 2 -->
             <div class="col w--80">
-                <span class="description">{{ each_song.airdate | date: '%s' | plus:utc_offset | date: '%I:%M
+          <span class="airtime_style">{{ each_song.airdate | date: '%s' | plus:utc_offset | date: '%I:%M
                     %p'}}</span>
                 {% if each_song.play_type == "airbreak" %}
                 <span class="value value--xxsmall">Air Break</span>
