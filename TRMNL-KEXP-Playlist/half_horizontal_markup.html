@@ -5,7 +5,7 @@
       line-height: 0.9;
         word-break: break-word;
     }
-    .airtime_style {
+    .airtime {
       font-family:NicoPups;
       font-size:16px;
       line-height:1;
@@ -46,7 +46,7 @@
             </div>
             <!-- Column 2 -->
             <div class="col w--80">
-          <span class="airtime_style">{{ each_song.airdate | date: '%s' | plus:utc_offset | date: '%I:%M
+          <span class="airtime">{{ each_song.airdate | date: '%s' | plus:utc_offset | date: '%I:%M
                     %p'}}</span>
                 {% if each_song.play_type == "airbreak" %}
                 <span class="value value--xxsmall">Air Break</span>
