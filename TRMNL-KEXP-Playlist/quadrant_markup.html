@@ -2,20 +2,21 @@
     .trmnl .description {
         padding-top: 0px;
         hyphens: auto;
-      line-height: 0.9;
+        line-height: 0.9;
         word-break: break-word;
     }
+
     .airtime {
-      font-family:NicoPups;
-      font-size:16px;
-      line-height:1;
-      -webkit-font-smoothing:none;
-      padding-top:1px;
-      display:-webkit-box;
-      -webkit-line-clamp:1;
-      -webkit-box-orient:vertical;
-      word-break:break-all;
-      overflow:hidden
+        font-family: NicoPups;
+        font-size: 16px;
+        line-height: 1;
+        -webkit-font-smoothing: none;
+        padding-top: 1px;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        word-break: break-all;
+        overflow: hidden
     }
 </style>
 <div class="layout layout-col">
@@ -23,7 +24,7 @@
     {% assign timezone = trmnl.user.time_zone %}
     {% assign utc_offset = trmnl.user.utc_offset %}
     <div class="grid grid--cols-1">
-      {% for each_song in results limit:5 %}
+        {% for each_song in results limit:5 %}
         <div class="row">
             <!-- Column 1 -->
             <div class="col w--20 pr--3">
@@ -43,7 +44,7 @@
             </div>
             <!-- Column 2 -->
             <div class="col w--80">
-          <span class="airtime_style">{{ each_song.airdate | date: '%s' | plus:utc_offset | date: '%I:%M
+                <span class="airtime_style">{{ each_song.airdate | date: '%s' | plus:utc_offset | date: '%I:%M
                     %p'}}</span>
                 {% if each_song.play_type == "airbreak" %}
                 <span class="value value--xxsmall">Air Break</span>
