@@ -72,7 +72,7 @@
   <div class="title_bar">
     <img class="image image-dither" src="https://kexp.org/static/assets/img/logo-footer.svg" alt="KEXP" />
     <span class="title">KEXP Playlist (unofficial)</span>
-    <span class="description pl--5">Updated at {{ "now" | date: "%s" | plus: trmnl.user.utc_offset | date: "%H:%M" }}</span>
+    <span class="description pl--5">Updated at {{ "now" | date: "%s" | plus: trmnl.user.utc_offset | date: '%I:%M%p' }}</span>
     <span class="description pl--5">Air times are {{ timezone }}</span>
     <span class="instance">kexp.org</span>
   </div>
