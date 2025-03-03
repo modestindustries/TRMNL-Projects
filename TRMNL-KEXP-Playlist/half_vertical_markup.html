@@ -47,7 +47,7 @@
             </div>
             <!-- Column 2 -->
             <div class="col w--80">
-                <span class="airtime">{{ each_song.airdate | date: '%s' | plus:utc_offset | date: '%I:%M
+          <span class="airtime">{{ each_song.airdate | date: '%s' | plus:utc_offset | date: '%l:%M
                     %p'}}</span>
                 {% if each_song.play_type == "airbreak" %}
                 <span class="value value--xxsmall">Air Break</span>
