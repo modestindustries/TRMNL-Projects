@@ -1,32 +1,32 @@
 <style>
   .trmnl .row {
-     height: 65px;
-   }
-   .trmnl .description {
-     padding-top: 0px;
-     hyphens: auto;
-     line-height: 0.8;
-     margin: 0;
-     padding: 0;
- 
-     word-break: break-word;
-   }
- 
-   .airtime {
-     font-family: NicoPups;
-     font-size: 16px;
-     line-height: 1;
-     -webkit-font-smoothing: none;
-     padding-top: 0px;
-     padding-bottom: 0px;
-     display: -webkit-box;
-     -webkit-box-orient: vertical;
-     overflow: hidden;
-     margin: 0;
-     padding: 0;
-     box-sizing: border-box;
-   }
- </style>
+      height: 65px;
+  }
+
+  .trmnl .description {
+      padding-top: 0px;
+      hyphens: auto;
+      line-height: 0.8;
+      margin: 0;
+      padding: 0;
+      word-break: break-word;
+  }
+
+  .airtime {
+      font-family: NicoPups;
+      font-size: 16px;
+      line-height: 1;
+      -webkit-font-smoothing: none;
+      padding-top: 0px;
+      padding-bottom: 0px;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+  }
+</style>
  <div class="layout layout-col">
    {% assign airtime_display = trmnl.plugin_settings.custom_fields_values.airtime_timezone %}
    {% assign timezone = trmnl.user.time_zone %}
