@@ -15,7 +15,7 @@
     .airtime {
         font-family: NicoPups;
         font-size: 16px;
-        line-height: 1;
+    line-height: .6;
         -webkit-font-smoothing: none;
         padding-top: 0px;
         padding-bottom: 0px;
@@ -46,8 +46,7 @@
                 <img class="image-dither" src="https://www.kexp.org/filer/canonical/1588181847/22497/" alt="KEXP"
                     style="width:70px;height:70px" display:block />
                 {% else %}
-                <img class="image-dither" src="{{each_song.thumbnail_uri}}" alt="Album Art"
-                    style="width:70px;height:70px" />
+         <img class="image-dither" src="{{each_song.thumbnail_uri}}" alt="Album Art" style="width:70px;height:70px" />
                 {% endif %}
             </div>
             <!-- Column 2 -->
