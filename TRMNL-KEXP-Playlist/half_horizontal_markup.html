@@ -54,7 +54,7 @@
            <span class="airtime">{{ each_song.airdate | date: '%s' | plus:utc_offset | date: '%l:%M
              %p'}}</span>
            {% if each_song.play_type == "airbreak" %}
-           <span class="value value--xxsmall">Air Break</span>
+        <span class="value value--xsmall">Air Break</span>
            {% else %}
            <span class="value value--xsmall clamp--1">{{ each_song.song }}</span>
            <span class="value value--xxsmall clamp--1">{{ each_song.artist }}</span>
