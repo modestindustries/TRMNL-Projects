@@ -15,7 +15,7 @@
     .airtime {
         font-family: NicoPups;
         font-size: 16px;
-    line-height: .6;
+    line-height: 0.6;
         -webkit-font-smoothing: none;
         padding-top: 0px;
         padding-bottom: 0px;
@@ -28,52 +28,63 @@
     }
 </style>
 <div class="layout layout-col">
-    {% assign airtime_display = trmnl.plugin_settings.custom_fields_values.airtime_timezone %}
+  {% assign airtime_display = trmnl.plugin_settings.custom_fields_values.airtime_timezone | string %}
     {% assign timezone = trmnl.user.time_zone %}
     {% assign utc_offset = trmnl.user.utc_offset %}
     <div class="grid grid--cols-1">
-        {% for each_song in results limit:2 %}
+    {% if results and results.size > 0 %}
+     {% for each_song in results limit:2 %}
+    {% assign airdate = each_song.airdate %}
+    {% assign play_type = each_song.play_type %}
+    {% assign song = each_song.song %}
+    {% assign artist = each_song.artist %}
+    {% assign album = each_song.album %}
+    {% assign comment = each_song.comment %}
+    {% assign release_date = each_song.release_date %}
+    {% assign thumbnail_uri = each_song.thumbnail_uri %}
         <div class="row">
             <!-- Column 1 -->
             <div class="col w--20 pr--3">
-                {% if each_song.play_type == "airbreak" %}
+        {% if play_type and play_type == "airbreak" %}
                 <img class="image-dither" src="https://kexp.org/static/assets/img/logo-footer-padding.svg" alt="KEXP"
                     style="width:70px;height:70px" />
-                {% elsif each_song.thumbnail_uri == "" %}
+        {% elsif thumbnail_uri == nil or thumbnail_uri == "" %}
                 <img class="image-dither" src="https://kexp.org/static/assets/img/default.png" alt="KEXP"
-                    style="width:70px;height:70px" display:block />
-                {% elsif each_song.album == "Live on KEXP" %}
+          style="width:70px;height:70px;display: block;" />
+        {% elsif album == "Live on KEXP" %}
                 <img class="image-dither" src="https://www.kexp.org/filer/canonical/1588181847/22497/" alt="KEXP"
-                    style="width:70px;height:70px" display:block />
+          style="width:70px;height:70px;display: block;" />
                 {% else %}
-         <img class="image-dither" src="{{each_song.thumbnail_uri}}" alt="Album Art" style="width:70px;height:70px" />
+        <img class="image-dither" src="{{thumbnail_uri}}" alt="Album Art" style="width:70px;height:70px" />
                 {% endif %}
             </div>
             <!-- Column 2 -->
-            <div class="col w--72">
-                <span class="airtime">{{ each_song.airdate | date: '%s' | plus:utc_offset | date: '%l:%M
-                    %p'}}</span>
-                {% if each_song.play_type == "airbreak" %}
+      <div class="col w--80">
+        {% assign airdate_ts = airdate | date: '%s' %}
+        {% assign shifted_ts = airdate_ts | plus: utc_offset %}
+        <span class="airtime">
+          {{ shifted_ts | date: '%l:%M %p' }}
+        </span>
+        {% if play_type == "airbreak" %}
         <span class="value value--xsmall">Air Break</span>
                 {% else %}
                 <span class="value value--xsmall clamp--1">{{ each_song.song }}</span>
                 <span class="value value--xxsmall clamp--1">{{ each_song.artist }}</span>
                 <span class="description clamp--1"><i>
-                        {% if each_song.album != null %}
-                        {{ each_song.album }}
+          {% if album and album != "" %}
+            {{ album }}
                         {% else %}
                         {% endif %}</i>
-                    {% if each_song.release_date != null %}
-                    - {{ each_song.release_date |
-                    date:'%Y'}}
+          {% if release_date contains '-' %}
+          - {{ release_date | date:'%Y' }}
                     {% endif %}</span>
                 {% endif %}
             </div>
         </div>
-        {% if forloop.index0 < 4 %} <div class="b-h-gray-3">
-    </div>
+     {% if forloop.index0 < 1 %} <div class="b-h-gray-3"></div>
     {% endif %}
     {% endfor %}
+  {% endif %}
 </div>
 </div>
 <div class="title_bar">

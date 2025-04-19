@@ -1,83 +1,83 @@
 <style>
-    .trmnl .row {
-        height: 65px;
-    }
+  .trmnl .row {
+      height: 65px;
+  }
 
-    .trmnl .description {
-        padding-top: 0px;
-        hyphens: auto;
-        line-height: 0.8;
-        margin: 0;
-        padding: 0;
-        word-break: break-word;
-    }
+  .trmnl .description {
+      padding-top: 0px;
+      hyphens: auto;
+      line-height: 0.8;
+      margin: 0;
+      padding: 0;
+      word-break: break-word;
+  }
 
-    .airtime {
-        font-family: NicoPups;
-        font-size: 16px;
-    line-height: .6;
-        -webkit-font-smoothing: none;
-        padding-top: 0px;
-        padding-bottom: 0px;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+  .airtime {
+      font-family: NicoPups;
+      font-size: 16px;
+  line-height: .6;
+      -webkit-font-smoothing: none;
+      padding-top: 0px;
+      padding-bottom: 0px;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+  }
 </style>
-   <div class="layout layout-col">
-     {% assign airtime_display = trmnl.plugin_settings.custom_fields_values.airtime_timezone %}
-     {% assign timezone = trmnl.user.time_zone %}
-     {% assign utc_offset = trmnl.user.utc_offset %}
-     <div class="grid grid--cols-1">
-       {% for each_song in results limit:5 %}
-       <div class="row">
-         <!-- Column 1 -->
-         <div class="col w--20 pr--3">
-           {% if each_song.play_type == "airbreak" %}
-           <img class="image-dither" src="https://kexp.org/static/assets/img/logo-footer-padding.svg" alt="KEXP"
-             style="width:70px;height:70px" />
-           {% elsif each_song.thumbnail_uri == "" %}
-           <img class="image-dither" src="https://kexp.org/static/assets/img/default.png" alt="KEXP"
-             style="width:70px;height:70px" display:block />
-           {% elsif each_song.album == "Live on KEXP" %}
-           <img class="image-dither" src="https://www.kexp.org/filer/canonical/1588181847/22497/" alt="KEXP"
-             style="width:70px;height:70px" display:block />
-           {% else %}
-           <img class="image-dither" src="{{each_song.thumbnail_uri}}" alt="Album Art" style="width:70px;height:70px" />
-           {% endif %}
-         </div>
-         <!-- Column 2 -->
-         <div class="col w--72">
-           <span class="airtime">{{ each_song.airdate | date: '%s' | plus:utc_offset | date: '%l:%M
-             %p'}}</span>
-           {% if each_song.play_type == "airbreak" %}
-        <span class="value value--xsmall">Air Break</span>
-           {% else %}
-           <span class="value value--xsmall clamp--1">{{ each_song.song }}</span>
-           <span class="value value--xxsmall clamp--1">{{ each_song.artist }}</span>
-           <span class="description clamp--1"><i>
-             {% if each_song.album != null %}
-             {{ each_song.album }}
-             {% else %}    
-             {% endif %}</i>
-               {% if each_song.release_date != null %}
-               - {{ each_song.release_date |
-               date:'%Y'}}
-               {% endif %}</span>
-           {% endif %}
-         </div>
+ <div class="layout layout-col">
+   {% assign airtime_display = trmnl.plugin_settings.custom_fields_values.airtime_timezone %}
+   {% assign timezone = trmnl.user.time_zone %}
+   {% assign utc_offset = trmnl.user.utc_offset %}
+   <div class="grid grid--cols-1">
+     {% for each_song in results limit:5 %}
+     <div class="row">
+       <!-- Column 1 -->
+       <div class="col w--20 pr--3">
+         {% if each_song.play_type == "airbreak" %}
+         <img class="image-dither" src="https://kexp.org/static/assets/img/logo-footer-padding.svg" alt="KEXP"
+           style="width:70px;height:70px" />
+         {% elsif each_song.thumbnail_uri == "" %}
+         <img class="image-dither" src="https://kexp.org/static/assets/img/default.png" alt="KEXP"
+           style="width:70px;height:70px" display:block />
+         {% elsif each_song.album == "Live on KEXP" %}
+         <img class="image-dither" src="https://www.kexp.org/filer/canonical/1588181847/22497/" alt="KEXP"
+           style="width:70px;height:70px" display:block />
+         {% else %}
+         <img class="image-dither" src="{{each_song.thumbnail_uri}}" alt="Album Art" style="width:70px;height:70px" />
+         {% endif %}
        </div>
-       {%- if forloop.index0 < 4 -%} <div class="b-h-gray-3">
+       <!-- Column 2 -->
+       <div class="col w--72">
+         <span class="airtime">{{ each_song.airdate | date: '%s' | plus:utc_offset | date: '%l:%M
+           %p'}}</span>
+         {% if each_song.play_type == "airbreak" %}
+      <span class="value value--xsmall">Air Break</span>
+         {% else %}
+         <span class="value value--xsmall clamp--1">{{ each_song.song }}</span>
+         <span class="value value--xxsmall clamp--1">{{ each_song.artist }}</span>
+         <span class="description clamp--1"><i>
+           {% if each_song.album != null %}
+           {{ each_song.album }}
+           {% else %}    
+           {% endif %}</i>
+             {% if each_song.release_date != null %}
+             - {{ each_song.release_date |
+             date:'%Y'}}
+             {% endif %}</span>
+         {% endif %}
+       </div>
      </div>
-     {%- endif -%}
-     {% endfor %}
+     {% if forloop.index0 < 4 %} <div class="b-h-gray-3">
    </div>
-   </div>
-   <div class="title_bar">
-     <img class="image image-dither" src="https://kexp.org/static/assets/img/logo-footer.svg" alt="KEXP" />
-     <span class="title">KEXP Playlist (unofficial)</span>
-     <span class="instance">kexp.org</span>
-   </div>
+   {% endif %}
+   {% endfor %}
+ </div>
+ </div>
+ <div class="title_bar">
+   <img class="image image-dither" src="https://kexp.org/static/assets/img/logo-footer.svg" alt="KEXP" />
+   <span class="title">KEXP Playlist (unofficial)</span>
+   <span class="instance">kexp.org</span>
+ </div>
