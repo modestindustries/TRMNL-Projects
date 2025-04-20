@@ -17,89 +17,107 @@
     font-size: 16px;
     line-height: 0.6;
     -webkit-font-smoothing: none;
-    padding-top: 0px;
-    padding-bottom: 0px;
+    padding: 0;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     overflow: hidden;
     margin: 0;
-    padding: 0;
     box-sizing: border-box;
   }
 </style>
+
 <div class="layout layout-col">
   {% assign airtime_display = trmnl.plugin_settings.custom_fields_values.airtime_timezone | string %}
   {% assign timezone = trmnl.user.time_zone %}
-  {% assign utc_offset = trmnl.user.utc_offset %}
+  {% assign raw_offset = trmnl.user.utc_offset %}
+  {% if raw_offset != true and raw_offset != "" and raw_offset != nil %}
+    {% assign utc_offset = raw_offset | plus: 0 %}
+  {% else %}
+    {% assign utc_offset = 0 %}
+  {% endif %}
+  
   <div class="grid grid--cols-1">
     {% if results and results.size > 0 %}
-    {% for each_song in results limit:5 %}
-    {% assign airdate = each_song.airdate %}
-    {% assign play_type = each_song.play_type %}
-    {% assign song = each_song.song %}
-    {% assign artist = each_song.artist %}
-    {% assign album = each_song.album %}
-    {% assign comment = each_song.comment %}
-    {% assign release_date = each_song.release_date %}
-    {% assign thumbnail_uri = each_song.thumbnail_uri %}
-    <div class="row">
-      <!-- Column 1 -->
-      <div class="col w--20 pr--3">
-        {% if play_type and play_type == "airbreak" %}
-        <img class="image-dither" src="https://kexp.org/static/assets/img/logo-footer-padding.svg" alt="KEXP"
-          style="width:70px;height:70px" />
-        {% elsif thumbnail_uri == nil or thumbnail_uri == "" %}
-        <img class="image-dither" src="https://kexp.org/static/assets/img/default.png" alt="KEXP"
-          style="width:70px;height:70px;display: block;" />
-        {% elsif album == "Live on KEXP" %}
-        <img class="image-dither" src="https://www.kexp.org/filer/canonical/1588181847/22497/" alt="KEXP"
-          style="width:70px;height:70px;display: block;" />
-        {% else %}
-        <img class="image-dither" src="{{thumbnail_uri}}" alt="Album Art" style="width:70px;height:70px" />
-        {% endif %}
-      </div>
-      <!-- Column 2 -->
-      <div class="col w--80">
-        {% assign airdate_ts = airdate | date: '%s' %}
-        {% assign shifted_ts = airdate_ts | plus: utc_offset %}
-        <span class="airtime">
-          {{ shifted_ts | date: '%l:%M %p' }}
-        </span>
-        {% if play_type == "airbreak" %}
-        <span class="value value--xsmall">Air Break</span>
-        {% else %}
-        <span class="value value--xsmall clamp--1">{{ each_song.song }}</span>
-        <span class="value value--xxsmall clamp--1">{{ each_song.artist }}</span>
-        <span class="description clamp--1"><i>
-          {% if album and album != "" %}
-            {{ album }}
+      {% for each_song in results limit:5 %}
+        {% assign airdate = each_song.airdate %}
+        {% assign play_type = each_song.play_type %}
+        {% assign song = each_song.song %}
+        {% assign artist = each_song.artist %}
+        {% assign album = each_song.album %}
+        {% assign comment = each_song.comment %}
+        {% assign release_date = each_song.release_date %}
+        {% assign thumbnail_uri = each_song.thumbnail_uri %}
+
+        <div class="row">
+          <!-- Column 1 -->
+          <div class="col w--20 pr--3">
+            {% if play_type and play_type == "airbreak" %}
+              <img class="image-dither" src="https://kexp.org/static/assets/img/logo-footer-padding.svg" alt="KEXP" style="width:70px;height:70px" />
+            {% elsif thumbnail_uri == nil or thumbnail_uri == "" or thumbnail_uri == true %}
+              <img class="image-dither" src="https://kexp.org/static/assets/img/default.png" alt="KEXP" style="width:70px;height:70px;display: block;" />
+            {% elsif album == "Live on KEXP" %}
+              <img class="image-dither" src="https://www.kexp.org/filer/canonical/1588181847/22497/" alt="KEXP" style="width:70px;height:70px;display: block;" />
             {% else %}
-            {% endif %}</i>
-          {% if release_date contains '-' %}
-          - {{ release_date | date:'%Y' }}
-          {% endif %}</span>
+              <img class="image-dither" src="{{ thumbnail_uri }}" alt="Album Art" style="width:70px;height:70px" />
+            {% endif %}
+          </div>
+
+          <!-- Column 2 -->
+          <div class="col w--80">
+            {% if airdate and airdate != "" and airdate != "null" and airdate != true and airdate != false %}
+              {% assign airdate_ts = airdate | date: '%s' %}
+              {% assign shifted_ts = airdate_ts | plus: utc_offset %}
+              <span class="airtime">
+                {{ shifted_ts | date: '%l:%M %p' }}
+              </span>
+            {% endif %}
+
+            {% if play_type == "airbreak" %}
+              <span class="value value--xsmall">Air Break</span>
+            {% else %}
+              {% if song and song != "" and song != true %}<span class="value value--xsmall clamp--1">{{ song }}</span>{% endif %}
+              {% if artist and artist != "" and artist != true %}<span class="value value--xxsmall clamp--1">{{ artist }}</span>{% endif %}
+
+              <span class="description clamp--1"><i>
+                {% if album and album != "" and album != true %}
+                  {{ album }}
+                {% endif %}
+              </i>
+              {% if release_date and release_date != true and release_date contains '-' %}
+                - {{ release_date | date: '%Y' }}
+              {% endif %}
+              </span>
+            {% endif %}
+          </div>
+
+          <!-- Column 3 -->
+          <div class="col w--80">
+            {% if comment and comment != "" and comment != true %}
+              <span class="description clamp--5">{{ comment }}</span>
+            {% endif %}
+          </div>
+        </div>
+
+        {% if forloop.index0 < 4 %}
+          <div class="b-h-gray-3"></div>
         {% endif %}
-      </div>
-      <!-- Column 3 -->
-      <div class="col w--80">
-        {% if comment != "" %}
-          <span class="description clamp--5">
-            {{ comment }}
-          </span>
-        {% endif %}
-      </div>
-    </div>
-    {% if forloop.index0 < 4 %} <div class="b-h-gray-3"></div>
-  {% endif %}
-  {% endfor %}
-  {% endif %}
+      {% endfor %}
+    {% endif %}
+  </div>
 </div>
-</div>
+
 <div class="title_bar">
   <img class="image image-dither" src="https://kexp.org/static/assets/img/logo-footer.svg" alt="KEXP" />
   <span class="title">KEXP Playlist (unofficial)</span>
-  <span class="description pl--5"><b>Updated at {{ "now" | date: "%s" | plus: trmnl.user.utc_offset | date: '%l:%M%p'
-      }}</b></span>
+  <span class="description pl--5">
+    {% assign now_ts = "now" | date: "%s" %}
+    {% assign display_time = now_ts | plus: utc_offset | date: "%l:%M%p" %}
+  <b>Updated at {{ display_time }}</b>
+  </span>
+  {% if timezone and timezone != true and timezone != "" %}
   <span class="description pl--5">Air times are {{ timezone }}</span>
+  {% else %}
+  <span class="description pl--5">Air times are in local time</span>
+  {% endif %}
   <span class="instance">kexp.org</span>
 </div>
