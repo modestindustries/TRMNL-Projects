@@ -22,7 +22,6 @@
         -webkit-box-orient: vertical;
         overflow: hidden;
         margin: 0;
-        padding: 0;
         box-sizing: border-box;
     }
 </style>
@@ -36,10 +35,9 @@
     {% else %}
       {% assign utc_offset = 0 %}
     {% endif %}
-  {% for each_program in IDX_1.results limit:1 %}
-  {% assign program = each_program.program_name %}
-  {% assign host = each_program.host_names %}
-  {% endfor %}
+
+  {% assign now_ts = "now" | date: "%s" %}
+
     <div class="grid grid--cols-1">
     {% if IDX_0.results and IDX_0.results.size > 0 %}
       {% for each_song in IDX_0.results limit:2 %}
@@ -78,8 +76,22 @@
 
         {% if play_type == "airbreak" %}
         <span class="value value--xsmall">Air Break</span>
-              {% if program and program != "" and program != true and host and host != "" and host != true %}
-                <span class="value value--xxsmall clamp--1">{{ program }} - {{ host }}</span>
+              {% assign show_0 = IDX_1.results[0] %}
+              {% assign show_1 = IDX_1.results[1] %}
+              {% assign start_0 = show_0.start_time | date: '%s' %}
+              {% assign end_0 = show_0.end_time | date: '%s' %}
+              {% assign start_1 = show_1.start_time | date: '%s' %}
+              {% assign end_1 = show_1.end_time | date: '%s' %}
+              {% assign airbreak_time = airdate | date: '%s' %}
+              {% assign program_0 = show_0.program_name %}
+              {% assign program_1 = show_1.program_name %}
+              {% assign host_0 = show_0.host_names %}
+              {% assign host_1 = show_1.host_names %}
+
+              {% if airbreak_time >= start_0 %}
+                <span class="description value--xxsmall clamp--1">{{ program_0 }} - {{ host_0 }}</span>
+              {% elsif airbreak_time >= start_1 %}
+                <span class="description value--xxsmall clamp--1">{{ program_1 }} - {{ host_1 }}</span>
               {% endif %}
                 {% else %}
               {% if song and song != "" and song != true %}<span class="value value--xsmall clamp--1">{{ song }}</span>{% endif %}
