@@ -33,7 +33,7 @@
   {% if raw_offset != true and raw_offset != "" and raw_offset != nil %}
     {% assign utc_offset = raw_offset | plus: 0 %}
   {% else %}
-    {% assign utc_offset = 0 %}
+    {% assign utc_offset = 0 %} 
   {% endif %}
   {% for each_program in IDX_1.results limit:1 %}
   {% assign program = each_program.program_name %}
