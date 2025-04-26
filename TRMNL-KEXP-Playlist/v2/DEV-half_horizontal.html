@@ -27,15 +27,13 @@
 </style>
 
  <div class="layout layout-col">
-  {% assign airtime_display = trmnl.plugin_settings.custom_fields_values.airtime_timezone | string %}
-   {% assign timezone = trmnl.user.time_zone %}
   {% assign raw_offset = trmnl.user.utc_offset %}
   {% if raw_offset != true and raw_offset != "" and raw_offset != nil %}
     {% assign utc_offset = raw_offset | plus: 0 %}
   {% else %}
     {% assign utc_offset = 0 %} 
   {% endif %}
-
+  {% assign seattle_offset = 10800 %}
   {% assign now_ts = "now" | date: "%s" %}
 
    <div class="grid grid--cols-1">
@@ -68,9 +66,8 @@
        <div class="col w--80">
             {% if airdate and airdate != "" and airdate != "null" and airdate != true and airdate != false %}
               {% assign airdate_ts = airdate | date: '%s' %}
-              {% assign shifted_ts = airdate_ts | plus: utc_offset %}
               <span class="airtime">
-                {{ shifted_ts | date: '%l:%M %p' }}
+          {{ airdate | date: '%l:%M %p' }}
               </span>
             {% endif %}
 
@@ -94,9 +91,10 @@
                 <span class="description value--xxsmall clamp--1">{{ program_1 }} - {{ host_1 }}</span>
               {% endif %}
          {% else %}
-              {% if song and song != "" and song != true %}<span class="value value--xsmall clamp--1">{{ song }}</span>{% endif %}
-              {% if artist and artist != "" and artist != true %}<span class="value value--xxsmall clamp--1">{{ artist }}</span>{% endif %}
-
+        {% if song and song != "" and song != true %}<span class="value value--xsmall clamp--1">{{ song }}</span>
+        {% endif %}
+        {% if artist and artist != "" and artist != true %}<span class="value value--xxsmall clamp--1">{{ artist}}</span>
+        {% endif %}
          <span class="description clamp--1"><i>
                 {% if album and album != "" and album != true %}
                   {{ album }}
@@ -130,13 +128,9 @@
    <span class="title">KEXP Playlist (unofficial)</span>
   <span class="description pl--5">
     {% assign now_ts = "now" | date: "%s" %}
-    {% assign display_time = now_ts | plus: utc_offset | date: "%l:%M%p" %}
+    {% assign display_time = now_ts | plus: utc_offset | minus: seattle_offset | date: "%l:%M%p" %}
   <b>Updated at {{ display_time }}</b>
   </span>
-  {% if timezone and timezone != true and timezone != "" %}
-   <span class="description pl--5">Air times are {{ timezone }}</span>
-  {% else %}
-  <span class="description pl--5">Air times are in local time</span>
-  {% endif %}
+  <span class="description pl--5">All times shown are PST - Seattle, WA</span>
    <span class="instance">kexp.org</span>
  </div>

@@ -27,15 +27,13 @@
 </style>
 
  <div class="layout layout-col">
-  {% assign airtime_display = trmnl.plugin_settings.custom_fields_values.airtime_timezone | string %}
-   {% assign timezone = trmnl.user.time_zone %}
   {% assign raw_offset = trmnl.user.utc_offset %}
   {% if raw_offset != true and raw_offset != "" and raw_offset != nil %}
     {% assign utc_offset = raw_offset | plus: 0 %}
   {% else %}
     {% assign utc_offset = 0 %}
   {% endif %}
-
+  {% assign seattle_offset = 10800 %}
   {% assign now_ts = "now" | date: "%s" %}
 
    <div class="grid grid--cols-1">
@@ -68,9 +66,8 @@
       <div class="col w--72">
             {% if airdate and airdate != "" and airdate != "null" and airdate != true and airdate != false %}
         {% assign airdate_ts = airdate | date: '%s' %}
-        {% assign shifted_ts = airdate_ts | plus: utc_offset %}
         <span class="airtime">
-          {{ shifted_ts | date: '%l:%M %p' }}
+          {{ airdate | date: '%l:%M %p' }}
         </span>
             {% endif %}
 
